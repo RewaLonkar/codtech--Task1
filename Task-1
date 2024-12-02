@@ -1,0 +1,209 @@
+#include<iostream>
+using namespace std;
+class Node 
+{
+public:
+	int roll,Marks;
+	string Name,Dept;
+	Node* next;
+};
+Node* head = new Node();
+// Check Function to check that Record Already Exist or Not
+check(int x)
+{
+	if (head == NULL)
+		return false;
+    Node* t = new Node;
+	t = head;
+
+	while (t != NULL)
+    {
+		if (t->roll == x)
+			return true;
+		t = t->next;
+	}
+    return false;
+}
+// Function to insert the record
+void Insert_Record(int roll, string Name,
+				string Dept, int Marks)
+{
+	// if Record Already Exist
+	if (check(roll)) 
+	{
+		cout << "Student with this record Already Exists\n";
+		return;
+	}
+    // Create new Node to Insert Record
+	Node* t = new Node();
+	t->roll = roll;
+	t->Name = Name;
+	t->Dept = Dept;
+	t->Marks = Marks;
+	t->next = NULL;
+    // Insert at Begin
+	if (head == NULL|| (head->roll >= t->roll)) 
+	{
+		t->next = head;
+		head = t;
+	}
+    // Insert at middle or End
+	else
+    {
+		Node* c = head;
+		while (c->next != NULL&& c->next->roll < t->roll)
+	    {
+			c = c->next;
+		}
+		t->next = c->next;
+		c->next = t;
+	}
+    cout << "Record Inserted Successfully\n";
+}
+// Function to search record for any students Record with roll number
+void Search_Record(int roll)
+{
+	if (!head)
+    {
+		cout << "No such Record Available\n";
+		return;
+    }
+	else 
+	{
+		Node* p = head;
+		while (p)
+	    {
+			if (p->roll == roll) 
+			{
+				cout << "\nRoll Number : "
+					<< p->roll << endl;
+				cout << "\nName : "
+					<< p->Name << endl;
+				cout << "\nDepartment : "
+					<< p->Dept << endl;
+				cout << "\nMarks : "
+					<< p->Marks << endl;
+				return;
+			}
+			p = p->next;
+		}
+
+		if (p == NULL)
+			cout << "No such Record Available\n";
+	}
+}
+
+// Function to delete record students record with given roll number
+int Delete_Record(int roll)
+{
+	Node* t = head;
+	Node* p = NULL;
+
+	// Deletion at Begin
+	if (t != NULL&& t->roll == roll)
+    {
+		head = t->next;
+		delete t;
+
+		cout << "Record Deleted Successfully\n";
+		return 0;
+	}
+
+	// Deletion Other than Begin
+	while (t != NULL && t->roll != roll)
+    {
+		p = t;
+		t = t->next;
+	}
+	if (t == NULL)
+    {
+		cout << "Record does not Exist";
+		return -1;
+		p->next = t->next;
+
+		delete t;
+		cout << "Record Deleted Successfully\n";
+
+		return 0;
+	}
+}
+// Function to display the Student's Record
+void Show_Record()
+{
+	Node* p = head;
+	if (p == NULL)
+	{
+		cout << "No Record "
+			<< "Available\n";
+	}
+	else
+    {
+		cout << "Index\tName\tCourse\tMarks\n";
+        
+		while (p != NULL) 
+		{
+			cout << p->roll << "\t"
+				<< p->Name << "\t"
+				<< p->Dept << "\t"
+				<< p->Marks << endl;
+			p = p->next;
+		}
+	}
+}
+// Driver code
+int main()
+{
+	head = NULL;
+	string Name, Course;
+	int Roll, Marks;
+
+	while (true)
+    {
+		cout << "\nSTUDENT MANAGEMENT SYSTEM";
+		cout << "\npress 1 to create a new Record";
+		cout <<	"\npress 2 to delete student record";
+		cout <<	"\npress 3 to Search a Student record";
+		cout <<	"\npress 4 to view all students";
+		cout <<	"\npress 5 to Exit\n";
+		cout << "\nEnter your Choice ";
+		int Choice;
+		cin >> Choice;
+		if (Choice == 1) 
+		{
+			cout << "Enter Name of Student : ";
+			cin >> Name;
+			cout << "Enter Roll Number of Student : ";
+			cin >> Roll;
+			cout << "Enter Course of Student : ";
+			cin >> Course;
+			cout << "Enter Total Marks of Student : ";
+			cin >> Marks;
+			Insert_Record(Roll, Name, Course, Marks);
+		}
+		else if (Choice == 2) 
+		{
+			cout << "Enter Roll Number of Student whose record is to be deleted\n";
+			cin >> Roll;
+			Delete_Record(Roll);
+		}
+		else if (Choice == 3)
+		 {
+			cout << "Enter Roll Number of Student whose record you want to Search\n";
+			cin >> Roll;
+			Search_Record(Roll);
+		}
+		else if (Choice == 4)
+	    {
+			Show_Record();
+		}
+		else if (Choice == 5) 
+		{
+			exit(0);
+		}
+		else 
+		{
+			cout << "Invalid Choice ";
+		}
+	}
+	return 0;
+}
