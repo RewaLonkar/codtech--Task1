@@ -8,7 +8,7 @@
 **Overview of the project** -
 
 **PROJECT :-** **STUDENT MANAGEMENT SYSTEM** (C++)
-![task-1](https://github.com/user-attachments/assets/6afae236-5d26-43ef-88be-eeecaede404a)
+![task-1](https://github.com/user-attachments/assets/3ff84b46-c7b7-4685-a3dc-5e34ee2e68f4)
 
 **OBJECTIVE :-**
 
