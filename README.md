@@ -47,4 +47,3 @@
 
 * Exit the program.
 3.Follow the on-screen prompts to perform the desired action.
-  
